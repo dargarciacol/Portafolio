@@ -1,0 +1,90 @@
+/* ==========================================================================
+   ROTONDA DE NAVEGACIÓN CIRCULAR & TELEMETRÍA (Responsivo y Adaptaciones)
+   ========================================================================== */
+
+.racing-loop-container {
+  position: fixed;
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.circular-track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.track-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.track-bg {
+  fill: none;
+  stroke: var(--bg-tarjeta, #0d0d0d);
+  stroke-width: 4;
+}
+
+.track-progress {
+  fill: none;
+  stroke: var(--rojo-hud, #dc3545);
+  stroke-width: 4;
+  stroke-dasharray: 1382;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.loop-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px;
+  background: var(--bg-negro, #050505);
+  border: 1px solid var(--texto-secundario, #8a8a8a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-codigo, monospace);
+  font-size: 0.75rem;
+  color: #BDBDBD;
+  transform: rotate(var(--angle, 0deg)) translate(220px) rotate(calc(-1 * var(--angle, 0deg)));
+  pointer-events: auto;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.loop-node.active, 
+.loop-node:hover {
+  border-color: var(--rojo-hud, #dc3545);
+  color: #ffffff;
+  box-shadow: 0 0 12px var(--rojo-hud, #dc3545);
+  background: var(--red-dark, #7A0000);
+}
+
+@media (max-width: 1024px) {
+  .racing-loop-container {
+    right: -200px;
+    width: 400px;
+    height: 400px;
+  }
+  
+  .loop-node {
+    transform: rotate(var(--angle, 0deg)) translate(175px) rotate(calc(-1 * var(--angle, 0deg)));
+  }
+}
+
+@media (max-width: 768px) {
+  .racing-loop-container {
+    display: none; /* Oculta la rotonda lateral en dispositivos móviles para optimizar espacio */
+  }
+}

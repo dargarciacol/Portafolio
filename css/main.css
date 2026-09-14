@@ -1,0 +1,83 @@
+/* ==========================================================================
+   MAIN / BASE STYLES & HUD GLOBALS
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-dark: #050505;
+  --bg-secondary: #0d0d0d;
+  --red-main: #dc3545;
+  --red-dark: #7A0000;
+  --white: #F5F5F5;
+  --gray-mid: #8a8a8a;
+  --gray-light: #BDBDBD;
+  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  
+  /* Mapeo con variables de la arquitectura global */
+  --bg-negro: var(--bg-dark);
+  --bg-tarjeta: var(--bg-secondary);
+  --rojo-hud: var(--red-main);
+  --texto-secundario: var(--gray-mid);
+  --fuente-codigo: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--white);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Headings y Estética Racing / HUD */
+h1, h2, h3, .heading-hud {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.text-highlight {
+  color: var(--red-main);
+}
+
+/* Barra de Navegación HUD */
+.hud-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1a1a1a;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.hud-accent {
+  color: var(--red-main);
+  font-weight: bold;
+}
+
+/* Indicador de Estado (Live Dot / Status) */
+.status-indicator.active {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--red-main);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--red-main);
+  margin-right: 8px;
+}

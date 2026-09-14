@@ -1,0 +1,182 @@
+/* ==========================================================================
+   COMPONENTS & LAYOUT STRUCTURE
+   ========================================================================== */
+
+.viewport-stage {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 20px 80px;
+}
+
+/* Transición y visibilidad de Secciones del Circuito (Sincronizado con JS .active / .revealed) */
+.circuit-section,
+.seccion-circuito {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.15;
+  filter: blur(2px);
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+/* Soporta tanto la clase .active como .revealed enviada por IntersectionObserver */
+.circuit-section.active,
+.seccion-circuito.active,
+.circuit-section.revealed,
+.seccion-circuito.revealed {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Encabezados de Sección */
+.section-header {
+  border-bottom: 1px solid var(--borde-dark, #222);
+  padding-bottom: 15px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.section-num {
+  font-family: var(--fuente-codigo, monospace);
+  color: var(--rojo-hud, #dc3545);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.subtext {
+  color: var(--texto-secundario, #8a8a8a);
+  font-size: 1rem;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   CONTENEDORES 3D (DONAS THREE.JS)
+   ========================================================================== */
+
+.contenedor-canvas-stack {
+  width: 100%;
+  height: 160px; /* Dimensiones fijas para que Three.js calcule el aspecto */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-3d-icono {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* ==========================================================================
+   CARDS DEL GARAGE & TARJETAS HORIZONTALES
+   ========================================================================== */
+
+.garage-card,
+.tarjeta-horizontal-garage,
+.tarjeta-stack-3d {
+  background: var(--bg-tarjeta, #0d0d0d);
+  border: 1px solid var(--borde-dark, #222);
+  padding: 30px;
+  position: relative;
+  transform-style: preserve-3d; /* Permite profundidad real para el efecto Tilt */
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.garage-card:hover,
+.tarjeta-horizontal-garage:hover,
+.tarjeta-stack-3d:hover {
+  border-color: var(--rojo-hud, #dc3545);
+}
+
+.garage-card::before,
+.tarjeta-horizontal-garage::before,
+.tarjeta-stack-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--rojo-hud, #dc3545);
+  transition: height 0.3s ease;
+}
+
+.garage-card:hover::before,
+.tarjeta-horizontal-garage:hover::before,
+.tarjeta-stack-3d:hover::before {
+  height: 100%;
+}
+
+/* ==========================================================================
+   TELEMETRY METRIC CARDS & DASHBOARD
+   ========================================================================== */
+
+.telemetry-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.telemetry-metric {
+  background: var(--bg-tarjeta, #0d0d0d);
+  border: 1px solid #1a1a1a;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-title {
+  font-family: var(--fuente-codigo, monospace);
+  font-size: 0.75rem;
+  color: var(--texto-secundario, #8a8a8a);
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.metric-value.live {
+  color: var(--rojo-hud, #dc3545);
+}
+
+/* ==========================================================================
+   MICROINTERACCIONES DE BOTONES
+   ========================================================================== */
+
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 14px 28px;
+  font-family: var(--fuente-codigo, monospace);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--rojo-hud, #dc3545);
+  color: #ffffff;
+  border: 1px solid var(--rojo-hud, #dc3545);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--rojo-hud, #dc3545);
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--texto-secundario, #8a8a8a);
+  border: 1px solid #333;
+}
+
+.btn-secondary:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
