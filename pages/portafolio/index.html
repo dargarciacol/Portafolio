@@ -353,30 +353,36 @@
 
         <!-- Sección 05: Contacto -->
         <section id="contacto" class="my-5 py-5">
-            <div class="p-4 p-md-5 bg-dark border border-danger rounded text-center style-form-container mx-auto" style="max-width: 750px;">
-                <h2 class="display-5 fuente-mono text-white fw-bold mb-2">¿LISTO PARA TRABAJAR EN EQUIPO?</h2>
-                <p class="lead text-secondary mb-4">Disponible para posiciones Backend Java y proyectos Full Stack.</p>
-                
-                <form id="formulario-contacto" class="text-start mx-auto" style="max-width: 600px;">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label fuente-mono text-light">NOMBRE O EMPRESA</label>
-                        <input type="text" class="form-control bg-black text-light border-secondary" id="nombre" placeholder="Ej. Reclutador / Empresa" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="correo" class="form-label fuente-mono text-light">CORREO ELECTRÓNICO</label>
-                        <input type="email" class="form-control bg-black text-light border-secondary" id="correo" placeholder="correo@ejemplo.com" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="mensaje" class="form-label fuente-mono text-light">MENSAJE</label>
-                        <textarea class="form-control bg-black text-light border-secondary" id="mensaje" rows="4" placeholder="Escribe aquí tu mensaje..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-danger w-100 fuente-mono py-2 mt-2">[ ENVIAR MENSAJE ]</button>
-                </form>
+    <div class="border-bottom border-secondary pb-2 mb-4">
+        <h2 class="fuente-mono text-uppercase"><span class="text-danger">05 //</span> TRANSMISIÓN DE DATOS (CONTACTO)</h2>
+    </div>
+    
+    <div class="p-4 bg-dark border border-secondary rounded fuente-mono shadow-lg" style="max-width: 700px; margin: 0 auto;">
+        <p class="text-secondary mb-4">// Envía un requerimiento directo al servidor. Respuesta garantizada.</p>
+        
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <!-- Tu Access Key de Web3Forms ya configurada -->
+            <input type="hidden" name="access_key" value="ba4de025-af20-4d89-b48b-59581b909b52">  
+            
+            <div class="mb-3">
+                <label for="name" class="form-label text-secondary small">// NOMBRE / EMPRESA</label>
+                <input type="text" class="form-control bg-black text-light border-secondary" name="name" required>
             </div>
-        </section>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label text-secondary small">// CORREO ELECTRÓNICO</label>
+                <input type="email" class="form-control bg-black text-light border-secondary" name="email" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="message" class="form-label text-secondary small">// MENSAJE / REQUERIMIENTO</label>
+                <textarea class="form-control bg-black text-light border-secondary" name="message" rows="4" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-danger w-100 fw-bold py-2">TRANSMITIR MENSAJE</button>
+        </form>
+    </div>
+</section>
 
     </main>
 <!-- Footer HUD Industrial / Animado -->
