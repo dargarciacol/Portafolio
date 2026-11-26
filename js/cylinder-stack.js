@@ -1,6 +1,10 @@
 /**
  * CYLINDER STACK 3D ENGINE — Rotor con Imágenes Locales Personalizadas (Corregido)
  */
+// Las rutas de los iconos se calculan respecto a este archivo: funcionan desde cualquier página.
+const CYLINDER_SCRIPT_SRC = document.currentScript && document.currentScript.src;
+const iconUrl = (name) => new URL('../assets/icons/' + name, CYLINDER_SCRIPT_SRC).href;
+
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas-cilindro-stack');
     const container = document.getElementById('contenedor-cilindro-3d');
@@ -26,16 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // NOTA: Si la carpeta assets está en la raíz y la página en pages/portafolio/, 
-    // asegúrate de subir niveles con "../../assets/icons/..." o ajustarlo según tu estructura.
     const techNodes = [
-        { name: "JAVA", level: "CORE SE", color: "#f89820", img: "../../assets/icons/images (2).png" },
-        { name: "SPRING BOOT", level: "REST APIs", color: "#6db33f", img: "../../assets/icons/images (3).png" },
-        { name: "POSTGRESQL", level: "DATABASE", color: "#336791", img: "../../assets/icons/images (4).png" },
-        { name: "NODE.JS", level: "BACKEND", color: "#68a063", img: "../../assets/icons/images (5).png" },
-        { name: "REST APIS", level: "ARCHITECTURE", color: "#dc3545", img: "../../assets/icons/images (9).png" },
-        { name: "PYTHON", level: "SCRIPTING", color: "#3776ab", img: "../../assets/icons/images (6).png" },
-        { name: "GIT", level: "VERSION CTRL", color: "#f05032", img: "../../assets/icons/images (8).png" }
+        { name: "JAVA", level: "CORE SE", color: "#f89820", img: iconUrl("images (2).png") },
+        { name: "SPRING BOOT", level: "REST APIs", color: "#6db33f", img: iconUrl("images (3).png") },
+        { name: "POSTGRESQL", level: "DATABASE", color: "#336791", img: iconUrl("images (4).png") },
+        { name: "NODE.JS", level: "BACKEND", color: "#68a063", img: iconUrl("images (5).png") },
+        { name: "REST APIS", level: "ARCHITECTURE", color: "#38bdf8", img: iconUrl("images (9).png") },
+        { name: "PYTHON", level: "SCRIPTING", color: "#3776ab", img: iconUrl("images (6).png") },
+        { name: "GIT", level: "VERSION CTRL", color: "#f05032", img: iconUrl("images (8).png") }
     ];
 
     const cylinderGroup = new THREE.Group();
@@ -100,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Carga segura usando Image() nativo para evitar fallos de sincronía en el Canvas 2D
         const imgObj = new Image();
-        imgObj.crossOrigin = "anonymous";
-        imgObj.onload = () => {
+                imgObj.onload = () => {
             renderCard(imgObj);
         };
         imgObj.onerror = () => {
@@ -112,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const ringGeometry = new THREE.TorusGeometry(radius, 0.03, 16, 100);
-    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xdc3545, wireframe: true, transparent: true, opacity: 0.4 });
+    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.4 });
     
     const ringTop = new THREE.Mesh(ringGeometry, ringMaterial);
     ringTop.rotation.x = Math.PI / 2;
@@ -123,6 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ringBottom.rotation.x = Math.PI / 2;
     ringBottom.position.y = -1.1;
     scene.add(ringBottom);
+
+    // Rendimiento y accesibilidad: no animar fuera de pantalla ni con 'reducir movimiento'
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let isVisible = true;
+    new IntersectionObserver(([entry]) => { isVisible = entry.isIntersecting; }, { threshold: 0 }).observe(container);
 
     let isDragging = false;
     let previousMouseX = 0;
@@ -168,10 +174,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animate() {
         requestAnimationFrame(animate);
+        if (!isVisible || document.hidden) return;
 
         if (!isDragging) {
-            velocityY *= 0.92; 
-            targetRotationY += 0.0008 + velocityY; 
+            velocityY *= 0.92;
+            targetRotationY += (reduceMotion ? 0 : 0.0008) + velocityY;
         }
 
         currentRotationY += (targetRotationY - currentRotationY) * 0.08;

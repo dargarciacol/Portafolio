@@ -4,7 +4,7 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
     // Desactivar estrictamente si el dispositivo es táctil o no soporta puntero fino (móviles, tablets)
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let dot = document.getElementById('cursorDot');
     let ring = document.getElementById('cursorRing');

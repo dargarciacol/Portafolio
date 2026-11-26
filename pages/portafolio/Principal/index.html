@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santiago García | Portafolio — Backend y Ciberseguridad</title>
+    <meta name="description" content="Portafolio de Santiago García (Bogotá): desarrollo backend con Java y Spring Boot, y ciberseguridad (SOC en formación).">
+    <meta name="theme-color" content="#05070a">
+    <meta property="og:title" content="Santiago García | Portafolio — Backend y Ciberseguridad">
+    <meta property="og:description" content="Desarrollo backend con Java y Spring Boot, y ciberseguridad (SOC en formación).">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+    <style>
+        :root {
+            --bg: #05070a;
+            --surface: #0b0f17;
+            --line: rgba(255, 255, 255, .14);
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --mono: ui-monospace, SFMono-Regular, "IBM Plex Mono", Menlo, Consolas, monospace;
+            --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; }
+        html { color-scheme: dark; }
+        body {
+            min-height: 100dvh;
+            background: var(--bg) radial-gradient(circle at 50% 0%, rgba(56, 189, 248, .12), transparent 55%) no-repeat;
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.55;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+        a { color: inherit; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+        .skip {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            background: var(--accent);
+            color: #05070a;
+            padding: .5rem .8rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+        .skip:focus { left: .5rem; top: .5rem; }
+        main { width: 100%; max-width: 980px; margin: auto; display: grid; gap: 2rem; }
+        header { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; }
+        .avatar {
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--accent);
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.15; margin: .2rem 0 .5rem; }
+        .lead { color: var(--muted); max-width: 60ch; }
+        .choices { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .card {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            padding: 1.4rem;
+            text-decoration: none;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: .85rem;
+            transition: border-color .2s ease, transform .2s ease;
+        }
+        .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+        .card h2 { font-size: 1.25rem; }
+        .card p { color: var(--muted); font-size: .92rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: .4rem; }
+        .tags span {
+            font-family: var(--mono);
+            font-size: .72rem;
+            padding: .2rem .5rem;
+            border: 1px solid var(--line);
+            border-radius: .35rem;
+            color: #cbd5e1;
+        }
+        .go { font-family: var(--mono); font-size: .82rem; color: var(--accent); }
+        footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem 1.25rem;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--line);
+            padding-top: 1rem;
+            font-size: .88rem;
+            color: var(--muted);
+        }
+        footer nav { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
+        footer a { text-decoration: none; color: var(--text); }
+        footer a:hover { color: var(--accent); }
+        @media (max-width: 560px) { header { grid-template-columns: 1fr; justify-items: start; } }
+        @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+    </style>
+</head>
+<body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <main id="contenido">
+        <header>
+            <!-- En raíz: ./assets/img/Perfil.jpeg | Dentro de pages/portafolio/Principal/: ../../../assets/img/Perfil.jpeg -->
+            <img class="avatar" src="../../../assets/img/Perfil.jpeg" alt="Fotografía de Santiago García" width="112" height="112" decoding="async">
+            <div>
+                <p class="eyebrow">Bogotá D.C., Colombia</p>
+                <h1>Santiago David García</h1>
+                <p class="lead">Desarrollador backend junior (Java y Spring Boot) y estudiante de ciberseguridad y redes. Elige el perfil que quieres revisar.</p>
+            </div>
+        </header>
+
+        <section class="choices" aria-label="Perfiles del portafolio">
+            <!-- En raíz: ./pages/portafolio/backend/index.html | Dentro de pages/portafolio/Principal/: ../backend/index.html -->
+            <a class="card" href="../backend/index.html">
+                <span class="eyebrow">Perfil 01</span>
+                <h2>Desarrollo Backend</h2>
+                <p>APIs REST con Java y Spring Boot, bases de datos relacionales y despliegue en la nube. Proyectos con código y demo.</p>
+                <div class="tags"><span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>Docker</span></div>
+                <span class="go">Ver perfil backend →</span>
+            </a>
+            <!-- En raíz: ./pages/portafolio/ciberseguridad/index.html | Dentro de pages/portafolio/Principal/: ../ciberseguridad/index.html -->
+            <a class="card" href="../ciberseguridad/index.html">
+                <span class="eyebrow">Perfil 02</span>
+                <h2>Ciberseguridad y SOC</h2>
+                <p>Analista SOC Nivel 2 en formación: NOVA SIEM, laboratorios de inteligencia de amenazas, OSINT y redes.</p>
+                <div class="tags"><span>SIEM</span><span>MISP</span><span>OSINT</span><span>Linux</span></div>
+                <span class="go">Ver perfil de ciberseguridad →</span>
+            </a>
+        </section>
+
+        <footer>
+            <nav aria-label="Enlaces de contacto">
+                <a href="https://github.com/dargarciacol" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/santiagogarcia-backend-developer-python-django-nodejs-java-restapi-mongodb-mysql" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="mailto:santigarcua@hotmail.com">Correo</a>
+            </nav>
+            <span>© 2026 Santiago David García Cuadros</span>
+        </footer>
+    </main>
+</body>
+</html>

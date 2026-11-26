@@ -21,7 +21,7 @@ function initThreeCanvas() {
 
     // Configuración para cada canvas individual
     const stackNodes = [
-        { id: 'canvas-3d-backend', color: 0xdc3545 },  // Rojo
+        { id: 'canvas-3d-backend', color: 0x38bdf8 },  // Rojo
         { id: 'canvas-3d-frontend', color: 0x0dcaf0 }, // Cían
         { id: 'canvas-3d-devops', color: 0x6c757d }    // Gris
     ];
@@ -97,9 +97,11 @@ function initThreeCanvas() {
  */
 function initCardTiltEffect() {
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isTouchDevice || reduceMotion) return;
 
-    const cards = document.querySelectorAll('.garage-card, .tarjeta-horizontal-garage, .tarjeta-stack-3d');
+    // Solo tarjetas pequeñas: inclinar tarjetas grandes con texto dificulta la lectura
+    const cards = document.querySelectorAll('.tarjeta-stack-3d');
 
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -110,10 +112,10 @@ function initCardTiltEffect() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -8;
-            const rotateY = ((x - centerX) / centerX) * 8;
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
         });
 
         card.addEventListener('mouseleave', () => {

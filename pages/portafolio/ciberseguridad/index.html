@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santiago García | Ciberseguridad y SOC en formación</title>
+    <meta name="description" content="Portafolio de ciberseguridad de Santiago García (Bogotá): analista SOC Nivel 2 en formación, NOVA SIEM, laboratorios de inteligencia de amenazas (MISP), OSINT y redes.">
+    <meta property="og:title" content="Santiago García | Ciberseguridad y SOC en formación">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+    <link rel="stylesheet" href="../../../css/certifications.css">
+    <meta name="theme-color" content="#05070a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        if (window.tailwind) tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#05070a',
+                            surface: '#0b0f17',
+                            accent: '#38bdf8',
+                            emerald: '#10b981',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05070a;
+            color: #f1f5f9;
+            font-family: 'IBM Plex Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Fondo técnico sutil */
+        .page-bg {
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.07), transparent 45%),
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+        }
+
+        /* Barra de navegación con píldora deslizante */
+        .nav-shell {
+            position: relative;
+            margin: 0 auto;
+            width: fit-content;
+            padding: 0.4rem 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 9999px;
+            background: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-indicator {
+            position: absolute;
+            top: 0.4rem;
+            left: 0;
+            height: 40px;
+            border-radius: 9999px;
+            background: #f8fafc;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .nav-link, .nav-arrow {
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            height: 40px;
+            padding: 0 0.85rem;
+            border-radius: 9999px;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.25s ease, background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-arrow {
+            padding: 0;
+            width: 38px;
+        }
+
+        .nav-link:hover, .nav-arrow:hover {
+            color: #ffffff;
+        }
+
+        .nav-link[aria-current="page"] {
+            color: #05070a;
+            font-weight: 700;
+        }
+
+        /* Tarjetas con efecto Spotlight al cursor */
+        .spotlight-card {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 0.75rem;
+            background: rgba(11, 15, 23, 0.82);
+            backdrop-filter: blur(10px);
+            transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+            overflow: hidden;
+        }
+
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(56, 189, 248, 0.12),
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .spotlight-card:hover {
+            border-color: rgba(56, 189, 248, 0.55);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Animación de entrada de páginas */
+        .page-enter {
+            animation: pageFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Arte ASCII pegado y parejo en una sola línea */
+        .ascii-name {
+            font-size: clamp(3.6px, 0.52vw, 6.8px);
+            line-height: 0.95;
+            letter-spacing: -0.35px;
+            user-select: none;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Scrollbar limpio en terminal */
+        .terminal-scroll::-webkit-scrollbar,
+        .ascii-name::-webkit-scrollbar {
+            width: 6px;
+            height: 4px;
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb,
+        .ascii-name::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.25);
+            border-radius: 999px;
+        }
+
+        /* Tabs internos */
+        .tab-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.65rem 0.95rem;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .tab-btn:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn[aria-selected="true"] {
+            color: #05070a;
+            background: #38bdf8;
+            font-weight: 700;
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+        }
+
+        /* Filtros de proyectos */
+        .filter-pill {
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.6);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-pill:hover {
+            color: #fff;
+            border-color: rgba(56, 189, 248, 0.45);
+        }
+
+        .filter-pill.active {
+            background: rgba(56, 189, 248, 0.16);
+            border-color: #38bdf8;
+            color: #7dd3fc;
+            font-weight: 600;
+        }
+
+        /* Carril maestro para que todas las secciones tengan exactamente el mismo ancho */
+        .content-rail {
+            max-width: 1160px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    
+        :focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="sr-only z-[60] rounded bg-sky-400 px-3 py-2 font-bold text-slate-950 focus:not-sr-only focus:fixed focus:left-3 focus:top-3">Saltar al contenido</a>
+    <div class="page-bg fixed inset-0 -z-20" aria-hidden="true"></div>
+    <div class="fixed inset-0 -z-10 bg-black/50" aria-hidden="true"></div>
+
+    <div class="relative mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col p-3 sm:p-6">
+        <main id="main-content" tabindex="-1"
+            class="flex w-full flex-1 flex-col rounded-xl border border-white/15 bg-[#080b11]/75 px-4 py-4 shadow-2xl backdrop-blur-md sm:px-7 sm:py-6">
+
+            <!-- Top Status Bar -->
+            <header class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3 text-xs">
+                <div class="flex items-center gap-3 text-slate-300">
+                    <span class="flex items-center gap-2 font-semibold text-sky-400">
+                        <span class="inline-flex h-2.5 w-2.5 rounded-full bg-sky-400" aria-hidden="true"></span>
+                        BLUE TEAM // EN FORMACIÓN
+                    </span>
+                    <span class="hidden text-slate-600 sm:inline">|</span>
+                    <span id="bogotaClock" class="hidden text-slate-400 sm:inline">BOGOTÁ --:--:-- COT</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" id="openCliBtn"
+                        class="hidden items-center gap-1.5 rounded-md border border-sky-400/30 bg-sky-400/10 px-2.5 py-1 text-sky-300 transition hover:bg-sky-400/20 md:inline-flex"
+                        title="Enfocar consola interactiva">
+                        <span>Consola</span>
+                        <kbd class="rounded bg-black/50 px-1.5 py-0.5 text-[10px] text-slate-300">Ctrl+K</kbd>
+                    </button>
+                    <a href="../backend/index.html"
+                        class="rounded-md border border-white/15 bg-white/5 px-3 py-1 text-slate-200 transition hover:border-rose-400/60 hover:bg-rose-500/10 hover:text-rose-300">
+                        Perfil Backend ↗
+                    </a>
+                    <a href="../Principal/index.html"
+                        class="rounded-md border border-white/15 bg-white/5 px-3 py-1 text-slate-400 transition hover:border-white/40 hover:text-white">
+                        Inicio
+                    </a>
+                </div>
+            </header>
+
+            <!-- Navegación Principal -->
+            <nav id="mainNav" class="nav-shell" aria-label="Navegación principal">
+                <div id="indicator" class="nav-indicator" aria-hidden="true"></div>
+                <ul class="relative flex items-center justify-center gap-1 sm:gap-2">
+                    <li>
+                        <button type="button" id="navPrev" class="nav-arrow" aria-label="Sección anterior">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#home" class="nav-link" data-target="home" data-label="01 // Consola Principal" aria-current="page">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            <span class="hidden sm:inline">Inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#projects" class="nav-link" data-target="projects" data-label="02 // Operaciones & Laboratorios">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <span class="hidden sm:inline">Proyectos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about-me" class="nav-link" data-target="about-me" data-label="03 // Perfil Técnico & Stack">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="hidden sm:inline">Sobre mí</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="nav-link" data-target="contact" data-label="04 // Canales Seguros">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                                <polyline points="3 7 12 13 21 7"></polyline>
+                            </svg>
+                            <span class="hidden sm:inline">Contacto</span>
+                        </a>
+                    </li>
+                    <li>
+                        <button type="button" id="navNext" class="nav-arrow" aria-label="Sección siguiente">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Separador con título dinámico -->
+            <div class="mx-auto flex w-full items-center gap-3 py-4 text-xs tracking-wider text-sky-300/90 before:h-px before:flex-1 before:bg-white/15 after:h-px after:flex-1 after:bg-white/15 sm:w-3/4 md:w-1/2"
+                aria-hidden="true">
+                <p id="section-title" class="font-mono font-semibold uppercase">01 // Consola Principal</p>
+            </div>
+
+            <div class="flex flex-1 flex-col">
+                <!-- ========================================================= -->
+                <!-- SECCIÓN 1: INICIO + TERMINAL INTERACTIVA SOC              -->
+                <!-- ========================================================= -->
+                <section id="home" class="page page-enter flex flex-1 flex-col justify-center gap-6 py-2 sm:py-4" data-page="home"
+                    aria-labelledby="home-title">
+                    <div class="content-rail grid w-full items-stretch gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+
+                        <!-- Columna Izquierda: Identidad y Propuesta de Valor -->
+                        <div class="flex min-w-0 flex-col justify-between gap-4 text-white">
+                            <div class="inline-flex w-fit items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-xs text-sky-300">
+                                <span>BLUE TEAM</span>
+                                <span class="text-slate-500">•</span>
+                                <span>SOC L2 · EN FORMACIÓN</span>
+                                <span class="text-slate-500">•</span>
+                                <span>THREAT INTEL</span>
+                            </div>
+
+                            <h1 id="home-title" class="sr-only">Santiago García — Ciberseguridad y SOC (en formación) en Bogotá</h1>
+
+                            <div class="w-full overflow-hidden py-1">
+                                <pre class="ascii-name text-white" aria-hidden="true"> @@@@@@   @@@@@@  @@@  @@@ @@@@@@@ @@@  @@@@@@   @@@@@@@  @@@@@@   <span class="text-sky-400"> @@@@@@@  @@@@@@  @@@@@@@   @@@@@@@ @@@  @@@@@@ </span>
+@@@@@@@  @@@@@@@@ @@@@ @@@ @@@@@@@ @@@ @@@@@@@@ @@@@@@@@ @@@@@@@@  <span class="text-sky-400">@@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@ @@@@@@@@</span>
+!@@      @@!  @@@ @@!@!@@@   @@!   @@! @@!  @@@ !@@      @@!  @@@  <span class="text-sky-400">!@@      @@!  @@@ @@!  @@@ !@@      @@! @@!  @@@</span>
+!@!      !@!  @!@ !@!!@!@!   !@!   !@! !@!  @!@ !@!      !@!  @!@  <span class="text-sky-400">!@!      !@!  @!@ !@!  @!@ !@!      !@! !@!  @!@</span>
+!!@@!!   @!@!@!@! @!@ !!@!   @!!   !!@ @!@!@!@! !@! @!@!@ @!@  !@!  <span class="text-sky-400">!@! @!@!@ @!@!@!@! @!@!!@!  !@!      !!@ @!@!@!@!</span>
+ !!@!!!  !!!@!!!! !@!  !!!   !!!   !!! !!!@!!!! !!! !!@!! !@!  !!!  <span class="text-sky-400">!!! !!@!! !!!@!!!! !!@!@!   !!!      !!! !!!@!!!!</span>
+    !:!  !!:  !!! !!:  !!!   !!:   !!: !!:  !!! :!!   !!: !!:  !!!  <span class="text-sky-400">:!!   !!: !!:  !!! !!: :!!  :!!      !!: !!:  !!!</span>
+   !:!   :!:  !:! :!:  !:!   :!:   :!: :!:  !:! :!:   !:: :!:  !:!  <span class="text-sky-400">:!:   !:: :!:  !:! :!:  !:! :!:      :!: :!:  !:!</span>
+:::: ::  ::   :::  ::   ::    ::    :: ::   :::  ::: :::: ::::: ::  <span class="text-sky-400"> ::: :::: ::   ::: ::   :::  ::: :::  :: ::   :::</span>
+:: : :    :   : : ::    :     :     :   :   : :  :: :: :   : :  :   <span class="text-sky-400"> :: :: :   :   : :  :   : :  :: :: : :    :   : :</span></pre>
+                            </div>
+
+                            <p class="font-sans max-w-[58ch] text-base leading-relaxed text-slate-300 sm:text-lg">
+                                En formación como <strong class="font-semibold text-sky-400">Analista SOC Nivel 2</strong> (Comunidad DOJO &amp; Women Of Security Panamá) y tecnólogo en formación en
+                                <strong class="font-semibold text-white">Gestión de Redes de Datos (SENA)</strong>. Vengo del desarrollo backend con Java y Spring Boot, y practico
+                                triaje de alertas, correlación <strong class="font-semibold text-sky-400">SIEM</strong>,
+                                inteligencia de amenazas (<strong class="font-semibold text-sky-400">MISP</strong>) y herramientas defensivas propias.
+                            </p>
+
+                            <!-- Métricas rápidas -->
+                            <div class="grid grid-cols-3 gap-2.5 pt-1 sm:max-w-md">
+                                <div class="rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+                                    <div class="text-base font-bold text-sky-400">SIEM</div>
+                                    <div class="text-[11px] text-slate-400">Triaje &amp; IoCs</div>
+                                </div>
+                                <div class="rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+                                    <div class="text-base font-bold text-emerald-400">MISP</div>
+                                    <div class="text-[11px] text-slate-400">Threat Intel</div>
+                                </div>
+                                <div class="rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+                                    <div class="text-base font-bold text-amber-300">AppSec</div>
+                                    <div class="text-[11px] text-slate-400">Java / Python</div>
+                                </div>
+                            </div>
+
+                            <!-- Acciones principales -->
+                            <div class="mt-1 flex flex-wrap items-center gap-3">
+                                <a href="#projects"
+                                    class="inline-flex items-center gap-2 rounded-lg bg-sky-400 px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-sky-300">
+                                    Explorar Proyectos
+                                    <span>→</span>
+                                </a>
+                                <a href="../../../assets/docs/santiago%20hoja%20de%20vida%20dev.pdf" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-sky-400 hover:text-sky-300">
+                                    Descargar CV
+                                </a>
+                                <a href="https://github.com/dargarciacol" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 bg-white/5 text-slate-200 transition hover:border-sky-400 hover:text-sky-400"
+                                    aria-label="GitHub de Santiago García">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Columna Derecha: Terminal SOC Interactiva -->
+                        <div class="spotlight-card flex flex-col justify-between border-white/20 bg-[#070a10] shadow-2xl">
+                            <!-- Barra de ventana tipo macOS/Linux -->
+                            <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-2.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="h-3 w-3 rounded-full bg-rose-500/80"></span>
+                                    <span class="h-3 w-3 rounded-full bg-amber-400/80"></span>
+                                    <span class="h-3 w-3 rounded-full bg-emerald-500/80"></span>
+                                    <span class="ml-2 text-xs text-slate-400">santiago@soc-node02:~</span>
+                                </div>
+                                <span class="text-[11px] text-emerald-400">● BASH INTERACTIVO</span>
+                            </div>
+
+                            <!-- Salida de comandos -->
+                            <div id="terminalOutput" role="log" aria-live="polite"
+                                class="terminal-scroll h-64 flex-1 space-y-2 overflow-y-auto p-4 text-xs leading-relaxed text-slate-300">
+                                <div class="text-sky-400">[+] Inicializando consola defensiva de Santiago García...</div>
+                                <div class="text-slate-400">Escribe <span class="text-amber-300">help</span> o haz clic en un comando rápido abajo para inspeccionar telemetría, proyectos o habilidades.</div>
+                                <div class="border-l-2 border-emerald-400/60 pl-2.5 text-slate-300">
+                                    <span class="text-emerald-400">STATUS:</span> NOVA SIEM desplegado | MISP en laboratorio | SOC L2 en formación.
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Comandos rápidos clicables -->
+                                <div class="flex flex-wrap gap-1.5 border-t border-white/10 bg-white/[0.02] px-3 py-2">
+                                    <button type="button" class="cli-chip rounded border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] text-sky-300 hover:border-sky-400" data-cmd="whoami">whoami</button>
+                                    <button type="button" class="cli-chip rounded border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] text-sky-300 hover:border-sky-400" data-cmd="siem">nova-siem</button>
+                                    <button type="button" class="cli-chip rounded border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] text-sky-300 hover:border-sky-400" data-cmd="labs">labs</button>
+                                    <button type="button" class="cli-chip rounded border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] text-sky-300 hover:border-sky-400" data-cmd="skills">skills</button>
+                                    <button type="button" class="cli-chip rounded border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] text-slate-400 hover:border-white/40" data-cmd="clear">clear</button>
+                                </div>
+
+                                <!-- Input real de terminal -->
+                                <form id="terminalForm" class="flex items-center gap-2 border-t border-white/10 bg-black/40 px-4 py-2.5">
+                                    <span class="text-xs font-bold text-emerald-400">soc@garcia:~$</span>
+                                    <input type="text" id="terminalInput" maxlength="80" aria-label="Comando de la consola" autocomplete="off" spellcheck="false"
+                                        placeholder="Escribe un comando (ej. help, siem, labs)..."
+                                        class="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- SECCIÓN 2: PROYECTOS Y LABORATORIOS (FILTRABLES + MODAL)  -->
+                <!-- ========================================================= -->
+                <section id="projects" class="page flex flex-1 flex-col justify-center gap-4 py-2 sm:py-3" data-page="projects"
+                    aria-labelledby="projects-title" hidden>
+                    <h2 id="projects-title" class="sr-only">Proyectos y Laboratorios de Ciberseguridad</h2>
+
+                    <!-- Barra de Filtros -->
+                    <div class="content-rail flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex flex-wrap gap-2" role="group" aria-label="Filtrar proyectos">
+                            <button type="button" class="filter-pill active" data-filter="all">Todos (3)</button>
+                            <button type="button" class="filter-pill" data-filter="siem">SIEM &amp; Blue Team</button>
+                            <button type="button" class="filter-pill" data-filter="cti">Threat Intel (MISP)</button>
+                            <button type="button" class="filter-pill" data-filter="labs">Labs &amp; Infraestructura</button>
+                        </div>
+                        <span class="text-xs text-slate-400">Haz clic en cualquier tarjeta para ver la ficha técnica</span>
+                    </div>
+
+                    <div class="content-rail grid items-stretch gap-4 md:grid-cols-2">
+                        <!-- Proyecto 1: NOVA SIEM -->
+                        <article data-category="siem" data-project="nova-siem"
+                            class="project-item spotlight-card group cursor-pointer p-5 sm:p-6 md:col-span-2">
+                            <div class="grid items-center gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="rounded border border-sky-400/40 bg-sky-400/10 px-2.5 py-0.5 text-[11px] font-semibold text-sky-300">PROYECTO ESTRELLA • SOC L2</span>
+                                        <span class="rounded border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-0.5 text-[11px] text-emerald-300">DESPLEGADO</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white transition group-hover:text-sky-400 sm:text-2xl">
+                                        NOVA SIEM — Plataforma de Gestión de Incidentes y Eventos
+                                    </h3>
+                                    <p class="font-sans text-sm leading-relaxed text-slate-300">
+                                        Sistema SIEM diseñado para flujos de investigación SOC Nivel 2. Centraliza la ingesta masiva
+                                        de logs y evidencias (Excel/CSV), correlación de Indicadores de Compromiso (IoCs), visualización
+                                        de grafos de relación y generación de reportes ejecutivos con seguridad reforzada vía JWT.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 pt-1 text-xs text-slate-400">
+                                        <span class="rounded bg-white/5 px-2 py-1">Java 21 &amp; Spring Boot</span>
+                                        <span class="rounded bg-white/5 px-2 py-1">Spring Security / JWT</span>
+                                        <span class="rounded bg-white/5 px-2 py-1">PostgreSQL</span>
+                                        <span class="rounded bg-white/5 px-2 py-1">Correlación IoCs</span>
+                                    </div>
+                                    <div class="pt-2 text-xs font-semibold text-sky-400 group-hover:underline">
+                                        Ver ficha técnica y enlaces →
+                                    </div>
+                                </div>
+
+                                <div class="rounded-lg border border-white/10 bg-[#05070b] p-4 font-mono text-[11px] leading-relaxed text-sky-300">
+                                    <div class="mb-2 flex items-center justify-between border-b border-white/10 pb-1.5 text-slate-400">
+                                        <span>FLUJO_DE_PROCESAMIENTO</span>
+                                        <span class="text-emerald-400">FLUJO</span>
+                                    </div>
+                                    <p><span class="text-slate-500">[01]</span> Ingesta Batch: Apache POI / CSV Parser</p>
+                                    <p><span class="text-slate-500">[02]</span> Enriquecimiento: Detección de IPs, Hashes y Dominios</p>
+                                    <p><span class="text-slate-500">[03]</span> Grafo SOC: Mapeo de nodos comprometidos</p>
+                                    <p><span class="text-slate-500">[04]</span> Hardening: RBAC + Stateless JWT Auth</p>
+                                    <p class="mt-2 text-emerald-400">→ Endpoint: backend-siem.onrender.com</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Proyecto 2: MISP -->
+                        <article data-category="cti" data-project="misp"
+                            class="project-item spotlight-card group flex h-full cursor-pointer flex-col justify-between p-5 sm:p-6">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="rounded border border-emerald-400/40 bg-emerald-400/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-300">THREAT INTELLIGENCE</span>
+                                    <span class="text-xs text-slate-400">Ubuntu 22.04</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white transition group-hover:text-sky-400">
+                                    Despliegue y Hardening de Plataforma MISP
+                                </h3>
+                                <p class="font-sans text-sm leading-relaxed text-slate-300">
+                                    Implementación completa de servidor MISP (Malware Information Sharing Platform) en Linux
+                                    para ingestión de feeds de amenazas, taxonomías MITRE ATT&amp;CK y correlación de IoCs.
+                                </p>
+                            </div>
+                            <div class="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
+                                <span class="text-slate-400">MISP · Linux Hardening · CTI</span>
+                                <span class="font-semibold text-sky-400">Ver detalles →</span>
+                            </div>
+                        </article>
+
+                        <!-- Proyecto 3: OSINT & TryHackMe -->
+                        <article data-category="labs" data-project="labs-osint"
+                            class="project-item spotlight-card group flex h-full cursor-pointer flex-col justify-between p-5 sm:p-6">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="rounded border border-amber-400/40 bg-amber-400/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300">OSINT &amp; PENTEST LABS</span>
+                                    <span class="text-xs text-slate-400">Kali Linux</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-white transition group-hover:text-sky-400">
+                                    Reconocimiento OSINT, Web Crypto &amp; TryHackMe
+                                </h3>
+                                <p class="font-sans text-sm leading-relaxed text-slate-300">
+                                    Enumeración DNS con theHarvester, auditoría de primitivas criptográficas con Web Crypto API
+                                    y explotación/análisis en TryHackMe (servicios vulnerables, backdoors y pivoteo SSH).
+                                </p>
+                            </div>
+                            <div class="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
+                                <span class="text-slate-400">theHarvester · TryHackMe · SSH</span>
+                                <span class="font-semibold text-sky-400">Ver detalles →</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- SECCIÓN 3: SOBRE MÍ (ALINEADA AL MISMO ANCHO DE 1160PX)   -->
+                <!-- ========================================================= -->
+                <section id="about-me" class="page flex flex-1 flex-col justify-center gap-4 py-2 sm:py-3" data-page="about-me"
+                    aria-labelledby="about-title" hidden>
+                    <h2 id="about-title" class="sr-only">Sobre mí</h2>
+                    <div class="content-rail flex flex-col items-stretch gap-4 lg:flex-row">
+
+                        <!-- Sidebar de Perfil -->
+                        <aside class="spotlight-card flex w-full shrink-0 flex-col justify-between p-5 sm:p-6 lg:w-80">
+                            <div class="space-y-2 border-b border-white/10 pb-4 text-xs">
+                                <div class="font-bold text-sky-400">// EXPEDIENTE_OPERATIVO</div>
+                                <p class="text-sm font-bold text-white">Santiago David García</p>
+                                <p class="text-slate-400">SOC L2 en formación &amp; Redes</p>
+                                <p class="text-slate-400">Bogotá D.C., Colombia</p>
+                            </div>
+
+                            <div class="mt-4 flex w-full flex-row gap-1.5 sm:flex-col" role="tablist"
+                                aria-label="Secciones de sobre mí">
+                                <button type="button" class="tab-btn" id="tab-about" role="tab" aria-selected="true"
+                                    aria-controls="panel-about" tabindex="0">01. Enfoque Defensivo</button>
+                                <button type="button" class="tab-btn" id="tab-experience" role="tab"
+                                    aria-selected="false" aria-controls="panel-experience" tabindex="-1">02. Formación &amp; Experiencia</button>
+                                <button type="button" class="tab-btn" id="tab-skills" role="tab" aria-selected="false"
+                            aria-controls="panel-skills" tabindex="-1">03. Herramientas &amp; Stack</button>
+                        <button type="button" class="tab-btn" id="tab-certs" role="tab" aria-selected="false"
+                            aria-controls="panel-certs" tabindex="-1">04. Certificaciones</button>
+                            </div>
+                        </aside>
+
+                        <!-- Contenido de Pestañas (ocupa todo el resto del carril de 1160px) -->
+                        <div class="min-w-0 flex-1">
+                            <!-- TAB 1: PERFIL -->
+                            <section id="panel-about" class="spotlight-card h-full p-5 sm:p-6" role="tabpanel"
+                                aria-labelledby="tab-about" tabindex="0">
+                                <div class="mb-3 flex items-center justify-between border-b border-white/10 pb-2 text-xs text-slate-400">
+                                    <span>soc-profile.html</span>
+                                    <span class="text-sky-400">UTF-8 // BLUE TEAM</span>
+                                </div>
+                                <pre class="overflow-x-auto text-xs leading-relaxed sm:text-sm"><span class="text-sky-400">&lt;section</span> <span class="text-cyan-200">id=</span><span class="text-amber-300">"blue-team-mindset"</span><span class="text-sky-400">&gt;</span>
+  <span class="text-sky-400">&lt;p&gt;</span>
+    Mi diferencial en ciberseguridad nace de entender los sistemas desde
+    adentro: antes de defender una API o una red, sé cómo se construye,
+    cómo se despliega y dónde suelen aparecer sus fallos de configuración.
+
+    Actualmente me entreno como Analista SOC Nivel 2 y curso Gestión de
+    Redes de Datos en el SENA, aplicando análisis de logs, correlación
+    SIEM, inteligencia de amenazas (MISP) y automatización defensiva.
+  <span class="text-sky-400">&lt;/p&gt;</span>
+<span class="text-sky-400">&lt;/section&gt;</span></pre>
+                            </section>
+
+                            <!-- TAB 2: EXPERIENCIA Y FORMACIÓN -->
+                            <section id="panel-experience" class="spotlight-card h-full p-5 sm:p-6" role="tabpanel"
+                                aria-labelledby="tab-experience" tabindex="0" hidden>
+                                <div class="space-y-5 font-sans">
+                                    <div class="border-l-2 border-sky-400 pl-4">
+                                        <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs text-sky-400">OCT 2026 – ACTUALIDAD</span><span class="rounded border border-white/15 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-400">Entrenamiento</span></div>
+                                        <h3 class="text-base font-bold text-white">Analista SOC Nivel 2 (en formación)</h3>
+                                        <p class="text-xs font-medium text-slate-400">Comunidad DOJO &amp; Women Of Security Panamá</p>
+                                        <p class="mt-1.5 text-sm text-slate-300">Triaje y escalamiento de incidentes, correlación de alertas SIEM y gestión de IoCs en entornos empresariales simulados.</p>
+                                    </div>
+
+                                    <div class="border-l-2 border-emerald-400 pl-4">
+                                        <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs text-emerald-400">2026 – EN CURSO</span><span class="rounded border border-white/15 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-400">Formación</span></div>
+                                        <h3 class="text-base font-bold text-white">Tecnología en Gestión de Redes de Datos</h3>
+                                        <p class="text-xs font-medium text-slate-400">Servicio Nacional de Aprendizaje (SENA)</p>
+                                        <p class="mt-1.5 text-sm text-slate-300">Arquitectura TCP/IP, administración de servicios de red en Linux, segmentación, enrutamiento y seguridad perimetral.</p>
+                                    </div>
+
+                                    <div class="border-l-2 border-emerald-400 pl-4">
+                                        <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs text-emerald-400">JUN 2026 – ACTUALIDAD</span><span class="rounded border border-white/15 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-400">Formación</span></div>
+                                        <h3 class="text-base font-bold text-white">Bootcamp Full Stack Java</h3>
+                                        <p class="text-xs font-medium text-slate-400">Generation Colombia</p>
+                                        <p class="mt-1.5 text-sm text-slate-300">Desarrollo backend con Java y Spring Boot, bases de datos SQL y APIs REST.</p>
+                                    </div>
+
+                                    <div class="border-l-2 border-slate-600 pl-4">
+                                        <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs text-slate-600">OCT 2023 – ENE 2026</span><span class="rounded border border-white/15 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-400">Experiencia laboral</span></div>
+                                        <h3 class="text-base font-bold text-white">Analista de Gestión de Procesos</h3>
+                                        <p class="text-xs font-medium text-slate-400">Atlantic Quantum Innovations • Bogotá D.C.</p>
+                                        <p class="mt-1.5 text-sm text-slate-300">Análisis de datos e indicadores, seguimiento de incidencias y documentación bajo acuerdos de nivel de servicio. Rol de análisis de procesos, no de operación SOC.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- TAB 3: MATRIZ TÉCNICA -->
+                            <section id="panel-skills" class="spotlight-card h-full p-5 sm:p-6" role="tabpanel"
+                                aria-labelledby="tab-skills" tabindex="0" hidden>
+                                <div class="space-y-5 font-sans">
+<div><h3 class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">Monitoreo y análisis</h3><div class="flex flex-wrap gap-2"><span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">SIEM</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Análisis de logs</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Triaje de alertas</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Gestión de IoCs</span></div></div>
+<div><h3 class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">Inteligencia de amenazas y reconocimiento</h3><div class="flex flex-wrap gap-2"><span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">MISP</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">MITRE ATT&amp;CK</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">OSINT (theHarvester, Shodan)</span></div></div>
+<div><h3 class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">Sistemas y redes</h3><div class="flex flex-wrap gap-2"><span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Linux (Debian / Ubuntu / Kali)</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Línea de comandos</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">TCP/IP</span></div></div>
+<div><h3 class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">Desarrollo y seguridad de aplicaciones</h3><div class="flex flex-wrap gap-2"><span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Java</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Spring Boot / Spring Security</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">Python</span> <span class="rounded border border-white/15 bg-white/5 px-2 py-1 text-xs text-slate-200">SQL (PostgreSQL)</span></div></div>
+<p class="text-xs text-slate-400">Sin niveles numéricos: cada herramienta aparece en un proyecto, laboratorio o formación descrita en este portafolio.</p>
+</div>
+                            </section>
+
+                            <!-- TAB 4: CERTIFICACIONES (assets/docs/certificaciones.json) -->
+                            <section id="panel-certs" class="spotlight-card h-full p-5 sm:p-6" role="tabpanel"
+                                aria-labelledby="tab-certs" tabindex="0" hidden>
+                                <div data-certifications data-category="ciberseguridad,redes,general"></div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- SECCIÓN 4: CONTACTO                                       -->
+                <!-- ========================================================= -->
+                <section id="contact" class="page flex flex-1 flex-col justify-center gap-4 py-2 sm:py-4"
+                    data-page="contact" aria-labelledby="contact-title" hidden>
+                    <h2 id="contact-title" class="sr-only">Contacto</h2>
+                    <div class="content-rail grid items-stretch gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <a href="https://github.com/dargarciacol" target="_blank" rel="noopener noreferrer"
+                            class="spotlight-card flex min-h-40 flex-col items-center justify-center gap-3 p-6 text-center">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" class="text-sky-400">
+                                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white">GitHub</h3>
+                            <p class="text-xs text-slate-400">@dargarciacol</p>
+                        </a>
+
+                        <a href="../../../assets/docs/santiago%20hoja%20de%20vida%20dev.pdf" target="_blank" rel="noopener noreferrer"
+                            class="spotlight-card flex min-h-40 flex-col items-center justify-center gap-3 p-6 text-center">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-emerald-400">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white">Hoja de Vida</h3>
+                            <p class="text-xs text-slate-400">Descargar documento PDF</p>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/santiagogarcia-backend-developer-python-django-nodejs-java-restapi-mongodb-mysql" target="_blank" rel="noopener noreferrer"
+                            class="spotlight-card flex min-h-40 flex-col items-center justify-center gap-3 p-6 text-center">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" class="text-sky-400" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.32-1.96 2.69V21h-4z"/></svg>
+                            <h3 class="text-lg font-bold text-white">LinkedIn</h3>
+                            <p class="text-xs text-slate-400">Perfil profesional</p>
+                        </a>
+
+                        <a href="mailto:santigarcua@hotmail.com"
+                            class="spotlight-card flex min-h-40 flex-col items-center justify-center gap-3 p-6 text-center">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-rose-300" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>
+                            <h3 class="text-lg font-bold text-white">Correo</h3>
+                            <p class="text-xs text-slate-400">santigarcua@hotmail.com</p>
+                        </a>
+
+                        <div class="spotlight-card flex min-h-40 flex-col items-center justify-center gap-3 p-6 text-center">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-amber-300">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white">Ubicación &amp; Modalidad</h3>
+                            <p class="text-xs text-slate-400">Bogotá D.C., Colombia • Remoto / Híbrido</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- MODAL DE FICHA TÉCNICA DE PROYECTOS                       -->
+    <!-- ========================================================= -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="w-full max-w-xl rounded-xl border border-sky-400/40 bg-[#0b0f17] p-6 shadow-2xl">
+            <div class="mb-4 flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                <div>
+                    <span id="modalTag" class="text-[11px] font-semibold uppercase tracking-wider text-sky-400"></span>
+                    <h3 id="modalTitle" class="mt-1 text-xl font-bold text-white"></h3>
+                </div>
+                <button type="button" id="closeModal"
+                    class="rounded-lg border border-white/15 px-2.5 py-1 text-xs text-slate-400 hover:border-white hover:text-white">
+                    ESC ✕
+                </button>
+            </div>
+
+            <div class="space-y-4 font-sans text-sm leading-relaxed text-slate-300">
+                <p id="modalDesc"></p>
+
+                <div class="rounded-lg border border-white/10 bg-black/40 p-3.5 font-mono text-xs">
+                    <div class="mb-2 font-semibold text-emerald-400">// ARQUITECTURA E IMPACTO DEFENSIVO</div>
+                    <ul id="modalBullets" class="list-inside list-disc space-y-1.5 text-slate-300"></ul>
+                </div>
+
+                <div id="modalLinks" class="flex flex-wrap gap-3 pt-2 font-mono text-xs"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- LÓGICA INTERACTIVA                                        -->
+    <!-- ========================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Reloj en vivo de Bogotá (UTC-5)
+            const clockEl = document.getElementById('bogotaClock');
+            function updateClock() {
+                const now = new Date();
+                const formatted = now.toLocaleTimeString('es-CO', {
+                    timeZone: 'America/Bogota',
+                    hour12: false
+                });
+                clockEl.textContent = `BOGOTÁ ${formatted} COT`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // 2. Efecto Spotlight en tarjetas
+            document.querySelectorAll('.spotlight-card').forEach((card) => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            });
+
+            // 3. Navegación con indicador deslizante
+            const pages = Array.from(document.querySelectorAll('.page'));
+            const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+            const indicator = document.getElementById('indicator');
+            const sectionTitle = document.getElementById('section-title');
+            const btnPrev = document.getElementById('navPrev');
+            const btnNext = document.getElementById('navNext');
+            let currentIndex = 0;
+
+            function moveIndicator(activeLink) {
+                if (!activeLink || !indicator) return;
+                indicator.style.width = `${activeLink.offsetWidth}px`;
+                indicator.style.transform = `translateX(${activeLink.offsetLeft}px)`;
+            }
+
+            function showPage(index) {
+                if (index < 0) index = pages.length - 1;
+                if (index >= pages.length) index = 0;
+                currentIndex = index;
+
+                const targetId = pages[currentIndex].dataset.page;
+
+                pages.forEach((page, i) => {
+                    if (i === currentIndex) {
+                        page.hidden = false;
+                        page.classList.remove('page-enter');
+                        void page.offsetWidth;
+                        page.classList.add('page-enter');
+                    } else {
+                        page.hidden = true;
+                    }
+                });
+
+                navLinks.forEach((link) => {
+                    const isActive = link.dataset.target === targetId;
+                    if (isActive) {
+                        link.setAttribute('aria-current', 'page');
+                        sectionTitle.textContent = link.dataset.label;
+                        moveIndicator(link);
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            // Posicionar indicador al cargar y al redimensionar
+            requestAnimationFrame(() => moveIndicator(navLinks[0]));
+            window.addEventListener('resize', () => moveIndicator(navLinks[currentIndex]));
+
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', (e) => {
+                    const targetId = anchor.getAttribute('href').substring(1);
+                    const targetIndex = pages.findIndex((p) => p.dataset.page === targetId);
+                    if (targetIndex !== -1) {
+                        e.preventDefault();
+                        showPage(targetIndex);
+                    }
+                });
+            });
+
+            btnPrev.addEventListener('click', () => showPage(currentIndex - 1));
+            btnNext.addEventListener('click', () => showPage(currentIndex + 1));
+
+            // 4. Consola SOC Interactiva
+            const terminalForm = document.getElementById('terminalForm');
+            const terminalInput = document.getElementById('terminalInput');
+            const terminalOutput = document.getElementById('terminalOutput');
+
+            const commands = {
+                help: `Comandos disponibles:<br>
+- <span class="text-sky-300">whoami</span> — Perfil profesional y formación<br>
+- <span class="text-sky-300">siem</span> — Detalles de NOVA SIEM (SOC L2)<br>
+- <span class="text-sky-300">labs</span> — Laboratorios MISP, OSINT y TryHackMe<br>
+- <span class="text-sky-300">skills</span> — Stack defensivo y herramientas<br>
+- <span class="text-sky-300">backend</span> — Cambiar al portafolio Backend<br>
+- <span class="text-sky-300">clear</span> — Limpiar consola`,
+                whoami: `<span class="text-emerald-400">Santiago David García</span> | Analista SOC Nivel 2 en entrenamiento (Comunidad DOJO &amp; WoSEC) y estudiante de Gestión de Redes de Datos (SENA) en Bogotá, Colombia.`,
+                siem: `<span class="text-sky-400">NOVA SIEM:</span> Plataforma centralizada de gestión de incidentes, ingesta masiva de logs/evidencias, correlación de IoCs y análisis de grafos. Endpoint activo en Render.`,
+                labs: `<span class="text-amber-300">Laboratorios activos:</span> Despliegue de MISP en Ubuntu 22.04, enumeración OSINT con theHarvester, auditoría Web Crypto API y retos en TryHackMe (Kali Linux / pivoteo SSH).`,
+                skills: `<span class="text-sky-300">Stack SOC:</span> SIEM &amp; Logs | MISP | Kali Linux | theHarvester | TCP/IP | Debian/Ubuntu | Python | Java &amp; Spring Security.`,
+            };
+
+            function runCommand(rawCmd) {
+                const cmd = rawCmd.trim().toLowerCase();
+                if (!cmd) return;
+
+                if (cmd === 'clear') {
+                    terminalOutput.replaceChildren();
+                    return;
+                }
+
+                if (cmd === 'backend') {
+                    window.location.href = '../backend/index.html';
+                    return;
+                }
+
+                const userLine = document.createElement('div');
+                const prompt = document.createElement('span');
+                prompt.className = 'text-emerald-400';
+                prompt.textContent = 'soc@garcia:~$';
+                const typed = document.createElement('span');
+                typed.className = 'text-white';
+                typed.textContent = ' ' + cmd; // entrada del usuario: SIEMPRE textContent (evita XSS)
+                userLine.append(prompt, typed);
+                terminalOutput.appendChild(userLine);
+
+                const responseLine = document.createElement('div');
+                responseLine.className = 'pl-2 text-slate-300';
+                if (Object.prototype.hasOwnProperty.call(commands, cmd)) {
+                    // Solo contenido estático definido en este archivo, nunca entrada del usuario
+                    responseLine.innerHTML = commands[cmd];
+                } else {
+                    const bad = document.createElement('span');
+                    bad.className = 'text-rose-400';
+                    bad.textContent = cmd;
+                    const help = document.createElement('span');
+                    help.className = 'text-amber-300';
+                    help.textContent = 'help';
+                    responseLine.append('Comando no reconocido: ', bad, '. Escribe ', help, '.');
+                }
+                terminalOutput.appendChild(responseLine);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+
+            terminalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                runCommand(terminalInput.value);
+                terminalInput.value = '';
+            });
+
+            document.querySelectorAll('.cli-chip').forEach((chip) => {
+                chip.addEventListener('click', () => runCommand(chip.dataset.cmd));
+            });
+
+            document.getElementById('openCliBtn')?.addEventListener('click', () => {
+                showPage(0);
+                terminalInput.focus();
+            });
+
+            // 5. Filtros y Modal de Proyectos
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const projectItems = document.querySelectorAll('.project-item');
+
+            filterPills.forEach((pill) => {
+                pill.addEventListener('click', () => {
+                    filterPills.forEach((p) => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    const filter = pill.dataset.filter;
+
+                    projectItems.forEach((item) => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            const projectDetails = {
+                'nova-siem': {
+                    tag: 'SIEM & Blue Team Operations',
+                    status: 'Funcional y desplegado en Render',
+                    title: 'NOVA SIEM — Plataforma de Gestión de Incidentes',
+                    desc: 'Plataforma full-stack enfocada en operaciones SOC Nivel 2 para centralizar telemetría, investigar incidentes y mapear relaciones entre activos comprometidos e Indicadores de Compromiso.',
+                    bullets: [
+                        'Backend seguro desarrollado en Java 21, Spring Boot 3.2.4 y Spring Security con autenticación JWT.',
+                        'Ingesta masiva y validación de evidencias en formato Excel/CSV mediante Apache POI y PostgreSQL.',
+                        'Visualización de grafos de ataque para acelerar el triaje y la generación de reportes ejecutivos.'
+                    ],
+                    links: [
+                        { label: 'Perfil de GitHub', url: 'https://github.com/dargarciacol', primary: false },
+                        { label: 'Servicio desplegado (Render)', url: 'https://backend-siem.onrender.com', primary: true }
+                    ]
+                },
+                'misp': {
+                    tag: 'Cyber Threat Intelligence (CTI)',
+                    status: 'Laboratorio personal',
+                    title: 'Despliegue y Endurecimiento de Servidor MISP',
+                    desc: 'Implementación dedicada de la plataforma abierta de inteligencia de amenazas MISP sobre entorno Linux Ubuntu 22.04 para la gestión estructurada de eventos e IoCs.',
+                    bullets: [
+                        'Configuración de servicios web, base de datos y trabajadores en segundo plano con endurecimiento de permisos.',
+                        'Integración de fuentes externas (feeds) y correlación automática de atributos maliciosos.',
+                        'Clasificación de eventos bajo estándares y taxonomías utilizadas en equipos CSIRT/SOC.'
+                    ],
+                    links: [
+                        { label: 'Ver perfil en GitHub', url: 'https://github.com/dargarciacol', primary: true }
+                    ]
+                },
+                'labs-osint': {
+                    tag: 'OSINT, Criptografía & Laboratorios Prácticos',
+                    status: 'Laboratorios de práctica',
+                    title: 'Reconocimiento OSINT, Web Crypto & TryHackMe',
+                    desc: 'Conjunto de laboratorios prácticos ofensivos y defensivos orientados a comprender vectores de intrusión reales y fortalecer controles de detección.',
+                    bullets: [
+                        'Recolección OSINT y enumeración de subdominios/correos con theHarvester.',
+                        'Análisis de seguridad criptográfica en aplicaciones cliente mediante Web Crypto API (crypto.subtle).',
+                        'Resolución de máquinas en TryHackMe sobre Kali Linux: detección de backdoors (UnrealIRCd) y pivoteo por bastiones SSH.'
+                    ],
+                    links: [
+                        { label: 'Explorar GitHub', url: 'https://github.com/dargarciacol', primary: true }
+                    ]
+                }
+            };
+
+            const modal = document.getElementById('projectModal');
+            const closeModal = document.getElementById('closeModal');
+
+            let lastFocus = null;
+
+            function openProject(item) {
+                const data = projectDetails[item.dataset.project];
+                if (!data) return;
+                lastFocus = item;
+
+                document.getElementById('modalTag').textContent = data.status ? `${data.tag} · ${data.status}` : data.tag;
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalDesc').textContent = data.desc;
+
+                // DOM seguro: nunca se inyecta texto como HTML
+                const bulletsEl = document.getElementById('modalBullets');
+                bulletsEl.replaceChildren(...data.bullets.map((b) => {
+                    const li = document.createElement('li');
+                    li.textContent = b;
+                    return li;
+                }));
+
+                const linksEl = document.getElementById('modalLinks');
+                linksEl.replaceChildren(...data.links.filter((l) => /^https:\/\//.test(l.url)).map((l) => {
+                    const a = document.createElement('a');
+                    a.href = l.url;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.className = 'rounded-lg px-4 py-2 font-semibold transition ' + (l.primary
+                        ? 'bg-sky-400 text-slate-950 hover:bg-sky-300'
+                        : 'border border-white/20 text-white hover:border-sky-400');
+                    a.textContent = `${l.label} ↗`;
+                    return a;
+                }));
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                closeModal.focus();
+            }
+
+            projectItems.forEach((item) => {
+                // Accesibles con teclado: Enter o Espacio abren la ficha
+                item.setAttribute('role', 'button');
+                item.setAttribute('tabindex', '0');
+                item.setAttribute('aria-haspopup', 'dialog');
+                item.addEventListener('click', () => openProject(item));
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openProject(item);
+                    }
+                });
+            });
+
+            function hideModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                if (lastFocus) lastFocus.focus();
+            }
+
+            closeModal.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) hideModal();
+            });
+
+            // 6. Tabs de Sobre Mí
+            const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+            const tabPanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+            tabs.forEach((tab) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach((t) => {
+                        t.setAttribute('aria-selected', 'false');
+                        t.setAttribute('tabindex', '-1');
+                    });
+                    tabPanels.forEach((p) => { p.hidden = true; });
+
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.setAttribute('tabindex', '0');
+                    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+                    if (panel) panel.hidden = false;
+                });
+            });
+
+            // Pestañas: navegación con flechas (patrón ARIA tabs)
+            tabs.forEach((tab, i) => {
+                tab.addEventListener('keydown', (e) => {
+                    const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+                    if (!dir) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const next = tabs[(i + dir + tabs.length) % tabs.length];
+                    next.click();
+                    next.focus();
+                });
+            });
+
+            // 7. Atajos globales de teclado
+            document.addEventListener('keydown', (e) => {
+                const modalOpen = !modal.classList.contains('hidden');
+                if (modalOpen) {
+                    if (e.key === 'Escape') { hideModal(); return; }
+                    if (e.key === 'Tab') { // el foco no sale del diálogo
+                        const f = Array.from(modal.querySelectorAll('a[href], button:not([disabled])'));
+                        if (!f.length) return;
+                        const first = f[0], last = f[f.length - 1];
+                        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                    }
+                    return;
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    showPage(0);
+                    terminalInput.focus();
+                    return;
+                }
+                // Flechas ←/→ solo si no hay un control enfocado (no interfiere con pestañas ni campos)
+                if (document.activeElement !== document.body || e.ctrlKey || e.metaKey || e.altKey) return;
+                if (e.key === 'ArrowLeft') showPage(currentIndex - 1);
+                if (e.key === 'ArrowRight') showPage(currentIndex + 1);
+            });
+        });
+    </script>
+    <script src="../../../js/certifications.js"></script>
+</body>
+
+</html>

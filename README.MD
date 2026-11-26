@@ -1,44 +1,40 @@
-Santiago García
-Software Developer | Backend 
+# Santiago García — Portafolio
 
-Bienvenido a mi portafolio personal. Este proyecto reúne mis proyectos, habilidades y tecnologías, mostrando mi crecimiento profesional y mi evolución hacia áreas como ciberseguridad, redes y automatización.
+Portafolio web estático con dos perfiles: **Desarrollo Backend** (Java, Spring Boot, PostgreSQL) y **Ciberseguridad / SOC en formación**.
 
-Backend
-☕ Java
-🟢 Node.js
-🔗 APIs REST
-🗄️ MySQL
-🍃 MongoDB
-Herramientas
-🔧 Git
-🐙 GitHub
-💻 Visual Studio Code
-Actualmente explorando
+## Estructura
 
-🛡️ Networking · Cybersecurity · Pentesting · Automatización
+```text
+index.html                         Página de entrada (elige perfil)
+pages/portafolio/backend/          Perfil Backend (Bootstrap + css/ + js/)
+pages/portafolio/ciberseguridad/   Perfil Ciberseguridad (Tailwind por CDN)
+css/  js/                          Estilos y scripts compartidos
+assets/docs/                       CV y certificaciones.json
+assets/img/  assets/icons/         Imágenes
+```
 
-Mi objetivo es complementar mis conocimientos como desarrollador con una base sólida en redes y ciberseguridad, aprendiendo a construir sistemas funcionales y comprender cómo hacerlos más seguros.
+## Ejecutar en local
 
-Proyectos
+Los navegadores bloquean `fetch` de archivos locales (necesario para las certificaciones), así que usa un servidor:
 
-Este portafolio reúne proyectos desarrollados durante mi proceso de formación, demostrando habilidades en desarrollo de aplicaciones, integración de backend, APIs REST, manejo de bases de datos, persistencia de información y control de versiones.
+```bash
+python3 -m http.server 8080
+# abrir http://localhost:8080
+```
 
-Objetivo profesional
+## Administrar certificaciones
 
-🚀 Seguir creciendo como Software Developer y evolucionar progresivamente hacia Cybersecurity, Networking, Pentesting y Automatización.
+Edita `assets/docs/certificaciones.json`. Copia el objeto de `_ejemplo` dentro de la lista `certificaciones` y completa **solo lo que tengas**: los campos vacíos se muestran como "pendiente". Guarda los PDF/imágenes en `assets/docs/certificados/` y referencia la ruta relativa a la raíz (ej. `assets/docs/certificados/curso.pdf`). Con `categoria` eliges en qué página aparece: `backend`, `ciberseguridad`, `redes` o `general` (todas).
 
-Instalación
-git clone https://github.com/dargarciacol/Portafolio.git
+## Publicar
 
-Abre el proyecto en Visual Studio Code y ejecútalo utilizando la configuración correspondiente.
+Sitio 100 % estático: sirve la raíz del repositorio en Netlify, GitHub Pages o similar (sin paso de compilación). Despliegue actual: https://delightful-llama-ffbd51.netlify.app/
 
-Contacto
+## Notas
 
-Santiago García
+- Las páginas de proyectos enlazan a servicios en Render (plan gratuito): pueden tardar en responder al "despertar".
+- Contacto del perfil Backend: formulario de [Web3Forms](https://web3forms.com); conviene restringir su clave por dominio en el panel del servicio.
 
-💻 Software Developer
+## Contacto
 
-Deploy: https://delightful-llama-ffbd51.netlify.app/
-GitHub
-LinkedIn
-Email
+GitHub: https://github.com/dargarciacol · Correo: santigarcua@hotmail.com

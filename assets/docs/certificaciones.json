@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "_ayuda": {
+    "como_agregar": "Copia el objeto de '_ejemplo' dentro de la lista 'certificaciones' y completa solo lo que tengas. Los campos vacíos se muestran como 'pendiente'. No inventes datos ni enlaces.",
+    "campos": {
+      "nombre": "Nombre de la certificación (obligatorio).",
+      "institucion": "Entidad que la expide.",
+      "fechaExpedicion": "Formato AAAA-MM-DD o AAAA-MM.",
+      "identificador": "Código o ID del certificado, si existe.",
+      "enlaceVerificacion": "URL https de verificación pública, si existe.",
+      "documento": "Ruta relativa a la raíz del proyecto (ej. assets/docs/certificados/mi-certificado.pdf) o URL https. Puede ser PDF o imagen.",
+      "categoria": "backend | ciberseguridad | redes | general (define en qué página aparece; 'general' aparece en todas)."
+    },
+    "nota": "El JSON no admite comentarios. Este bloque y '_ejemplo' no se muestran en el sitio."
+  },
+  "_ejemplo": {
+    "nombre": "Nombre de la certificación",
+    "institucion": "Institución que la expide",
+    "fechaExpedicion": "2026-01-31",
+    "identificador": "",
+    "enlaceVerificacion": "",
+    "documento": "assets/docs/certificados/ejemplo.pdf",
+    "categoria": "general"
+  },
+  "certificaciones": []
+}

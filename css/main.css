@@ -2,17 +2,15 @@
    MAIN / BASE STYLES & HUD GLOBALS
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&display=swap');
-
 :root {
   --bg-dark: #050505;
   --bg-secondary: #0d0d0d;
-  --red-main: #dc3545;
-  --red-dark: #7A0000;
+  --red-main: #38bdf8;
+  --red-dark: #6e0c0c;
   --white: #F5F5F5;
   --gray-mid: #8a8a8a;
   --gray-light: #BDBDBD;
-  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, 'IBM Plex Mono', Menlo, Consolas, 'Courier New', monospace;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   
   /* Mapeo con variables de la arquitectura global */
@@ -31,32 +29,14 @@
 
 body {
   background-color: var(--bg-dark);
-  /* Fondo animado estilo telemetría/paddock con patrón sutil y gradiente ambiental */
-  background-image: 
-      linear-gradient(135deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
-      linear-gradient(225deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
-      linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
-      linear-gradient(315deg, rgba(255, 255, 255, 0.015) 25%, var(--bg-dark) 25%),
-      radial-gradient(circle at 50% 20%, rgba(220, 53, 69, 0.08) 0%, transparent 70%);
-  
-  background-size: 50px 50px;
-  background-position: 0 0;
-  animation: paddockMovement 30s linear infinite;
+  /* Fondo estático (la animación continua del fondo se retiró por rendimiento) */
+  background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.10), transparent 55%);
+  background-repeat: no-repeat;
   color: var(--white);
   font-family: var(--font-sans);
   overflow-x: hidden;
   line-height: 1.5;
   position: relative;
-}
-
-/* Animación de desplazamiento continuo simulando pista o boxes */
-@keyframes paddockMovement {
-    0% {
-        background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
-    }
-    100% {
-        background-position: 50px 50px, 50px 50px, 50px 50px, 50px 50px, 0 0;
-    }
 }
 
 /* Headings y Estética Racing / HUD */
@@ -102,4 +82,22 @@ h1, h2, h3, .heading-hud {
   border-radius: 50%;
   box-shadow: 0 0 8px var(--red-main);
   margin-right: 8px;
+}
+
+/* ---- Clases usadas por las páginas y que no estaban definidas ---- */
+.fuente-mono { font-family: var(--font-mono); }
+.tracking-widest { letter-spacing: .1em; }
+.barra-consola { font-family: var(--font-mono); }
+.circulo-consola { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.preview-app { font-family: var(--font-mono); }
+.style-driver-card { box-shadow: 0 10px 30px rgba(0, 0, 0, .5); }
+.footer-hud { background: rgba(5, 5, 5, .9); }
+.status-dot-footer { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--red-main); }
+.social-link { transition: color .2s ease; }
+.social-link:hover { color: var(--red-main) !important; }
+:focus-visible { outline: 2px solid var(--red-main); outline-offset: 2px; }
+html { scroll-padding-top: 80px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

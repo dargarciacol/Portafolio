@@ -34,7 +34,7 @@
 
 .track-progress {
   fill: none;
-  stroke: var(--rojo-hud, #dc3545);
+  stroke: var(--rojo-hud, #38bdf8);
   stroke-width: 4;
   stroke-dasharray: 1382;
   stroke-dashoffset: 1000;
@@ -65,10 +65,10 @@
 
 .loop-node.active, 
 .loop-node:hover {
-  border-color: var(--rojo-hud, #dc3545);
+  border-color: var(--rojo-hud, #38bdf8);
   color: #ffffff;
-  box-shadow: 0 0 12px var(--rojo-hud, #dc3545);
-  background: var(--red-dark, #7A0000);
+  box-shadow: 0 0 12px var(--rojo-hud, #38bdf8);
+  background: var(--red-dark, #0c4a6e);
 }
 
 @media (max-width: 1024px) {
